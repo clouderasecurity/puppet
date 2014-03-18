@@ -2,19 +2,14 @@
 #
 # The zncrypt configuration settings.
 #
-# Parameters:
-#
-# Actions:
-#
-# Requires:
-#
-# Sample Usage:
-#
 class zncrypt::params {
+    $keyserver          = "ztdemo.gazzang.net"
+    $organization       = "myorg"
+    $authorization      = "mysecret"
     $zncrypt_prefix     = "/var/lib/zncrypt"
-    $zncrypt_mount      = "${zncrypt_prefix}/mnt"
-    $zncrypt_storage    = "${zncrypt_prefix}/storage"
-    $gazzang_baseurl    = "http://archive.gazzang.com"
+    $zncrypt_mount      = "${zncrypt_prefix}/encrypted"
+    $zncrypt_storage    = "${zncrypt_prefix}/.private"
+    $gazzang_baseurl    = "https://archive.gazzang.com"
     $gazzang_gpgkey     = "$gazzang_baseurl/gpg_gazzang.asc"
 
     case $::osfamily {

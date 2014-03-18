@@ -10,27 +10,34 @@ Platform
 --------
 
 * Debian, Ubuntu
-* CentOS, Red Hat, Fedora
+* CentOS, Red Hat
+* SLES, OpenSUSE
 
 Tested on:
 
-* Ubuntu 10.04, 12.04
-* CentOS 6.4, RHEL 6.4
+* Ubuntu 12.04
+* CentOS 6.4
 
 Puppet Module Dependencies
 --------------------------
 
-* apt
+For Ubuntu and Debian support:
+
+* puppetlabs-apt
+
+For SUSE support:
+
+* darin-zypprepo
 
 Connectivity
 ------------
 
-An internet connection is required.
+An internet connection is required for package resolution.
 
 Usage
 =====
 
-There are a couple of parameters that need to be changed prior to running these scripts:
+There are a couple of parameters that need to be changed prior to running:
 
 zTrustee Registration/Activation Options
 ----------------------------------------
@@ -39,9 +46,12 @@ $keyserver = ""
 
 This will be the zTrustee Key Management server that the zNcrypt client will attempt to register with.
 
-$activation_email = ""
+$organization = ""
+$authorization = ""
 
-This is the email address that the client will use to register against the keyserver above. This email address must be preregistered as an 'organization administrator' on the keyserver prior to installation. 
+These are the credentials passed to the keyserver upon registration. These are generated server-side, and should be kept secret. 
+
+If you do not know where to find your `organization` or `authorization` code, then please contact support@gazzang.com.
 
 zNcrypt Configuration Options
 -----------------------------
@@ -50,22 +60,20 @@ $passphrase = ""
 
 $passphrase2 = ""
 
-These will be the passphrases used to control access to the encrypted data. These passwords are hard-coded for testing purposes, but should be changed and randomized per machine for production environments.
+These will be the passphrases used to control access to the encrypted data. These passwords are hard-coded for testing purposes, but should be changed and randomized per-machine for production environments.
 
 $zncrypt_prefix = "/var/lib/zncrypt"
 
-$zncrypt_mount = "/var/lib/zncrypt/mnt"
+$zncrypt_mount = "$zncrypt_prefix/encrypted"
 
-$zncrypt_storage = "/var/lib/zncrypt/storage"
+$zncrypt_storage = "$zncrypt_prefix/.private"
 
-These are the directories that will hold the zNcrypt encrypted file system. Because puppet does not have an equivalent path creation tool, each directory must be created explicitly.
+These are the directories that will hold the zNcrypt encrypted file system.
 
 License and Author
 ==================
 
-Author:: Ross McDonald (<ross.mcdonald@gazzang.com>)
-
-Copyright:: 2013 Gazzang, Inc
+Copyright:: 2014 Gazzang, Inc
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
